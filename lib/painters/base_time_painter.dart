@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../decoration/time_picker_clock_number_decoration.dart';
-import '../decoration/time_picker_clock_sector_decoration.dart';
+import '../decoration/time_picker_sector_decoration.dart';
 import '../decoration/time_picker_decoration.dart';
 import '../src/utils.dart';
 
@@ -38,7 +38,7 @@ class BaseTimePainter extends CustomPainter {
       _paintSectors(
           secondarySectors,
           decoration.secondarySectorsDecoration ??
-              TimePickerClockSectorDecoration(),
+              TimePickerSectorDecoration(),
           canvas);
     }
 
@@ -46,7 +46,7 @@ class BaseTimePainter extends CustomPainter {
       _paintSectors(
           primarySectors,
           decoration.primarySectorsDecoration ??
-              TimePickerClockSectorDecoration(size: 6),
+              TimePickerSectorDecoration(size: 6),
           canvas);
     }
 
@@ -57,7 +57,7 @@ class BaseTimePainter extends CustomPainter {
   }
 
   List<Offset> _paintSectors(
-      int sectors, TimePickerClockSectorDecoration decoration, Canvas canvas) {
+      int sectors, TimePickerSectorDecoration decoration, Canvas canvas) {
     Paint sectionBrush = _getPaint(
         color: decoration.color,
         width: decoration.width,

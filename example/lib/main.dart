@@ -95,13 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Color(0xFF3CDAF7),
                 ),
               ),
-              primarySectorsDecoration: TimePickerClockSectorDecoration(
+              primarySectorsDecoration: TimePickerSectorDecoration(
                 color: Colors.white,
                 width: 1.0,
                 size: 4.0,
                 radiusPadding: 25.0,
               ),
-              secondarySectorsDecoration: TimePickerClockSectorDecoration(
+              secondarySectorsDecoration: TimePickerSectorDecoration(
                 color: Color(0xFF3CDAF7),
                 width: 1.0,
                 size: 2.0,

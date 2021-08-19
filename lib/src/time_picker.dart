@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../decoration/time_picker_clock_number_decoration.dart';
-import '../decoration/time_picker_clock_sector_decoration.dart';
+import '../decoration/time_picker_sector_decoration.dart';
 import '../decoration/time_picker_sweep_decoration.dart';
 import '../decoration/time_picker_handler_decoration.dart';
 import '../decoration/time_picker_decoration.dart';
@@ -33,7 +32,7 @@ class TimePicker extends StatefulWidget {
   final int? secondarySectors;
 
   /// an optional widget that would be mounted inside the circle
-  final Widget child;
+  final Widget? child;
 
   /// height of the canvas, default at 220
   final double? height;
@@ -49,26 +48,26 @@ class TimePicker extends StatefulWidget {
   /// (int init, int end) => void
   final SelectionChanged<int> onSelectionEnd;
 
+  /// used to decorate the our widget
   final TimePickerDecoration? decoration;
 
   TimePicker({
     required this.divisions,
     required this.init,
     required this.end,
-    required this.child,
     required this.onSelectionChange,
     required this.onSelectionEnd,
+    this.child,
     this.decoration,
     this.height,
     this.width,
     this.primarySectors,
     this.secondarySectors,
-  })  : assert(divisions >= 0 && divisions <= 300,
+  }) : assert(divisions >= 0 && divisions <= 300,
             'divisions has to be > 0 and <= 300');
 
   @override
-  _TimePickerState createState() =>
-      _TimePickerState();
+  _TimePickerState createState() => _TimePickerState();
 }
 
 class _TimePickerState extends State<TimePicker> {
@@ -110,7 +109,7 @@ class _TimePickerState extends State<TimePicker> {
       ),
     );
 
-    var primarySectorDecoration = TimePickerClockSectorDecoration(
+    var primarySectorDecoration = TimePickerSectorDecoration(
         color: Colors.blue, width: 2, size: 8, useRoundedCap: false);
 
     var secondarySectorDecoration = primarySectorDecoration.copyWith(
@@ -119,11 +118,8 @@ class _TimePickerState extends State<TimePicker> {
       size: 6,
     );
 
-    var clock = TimePickerClockNumberDecoration();
-
     return TimePickerDecoration(
       sweepDecoration: sweepDecoration,
-      clockNumberDecoration: clock,
       baseColor: Colors.lightBlue[200]!.withOpacity(0.2),
       primarySectorsDecoration: primarySectorDecoration,
       secondarySectorsDecoration: secondarySectorDecoration,
@@ -143,7 +139,7 @@ class _TimePickerState extends State<TimePicker> {
         divisions: widget.divisions,
         primarySectors: widget.primarySectors ?? 0,
         secondarySectors: widget.secondarySectors ?? 0,
-        child: widget.child,
+        child: widget.child ?? Container(),
         onSelectionChange: (newInit, newEnd) {
           widget.onSelectionChange(newInit, newEnd);
           setState(() {

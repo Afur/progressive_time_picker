@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+///
+/// used to decorate our init or end handler of time picker
+///
 class TimePickerHandlerDecoration {
   /// shape defines the handler default shape could be a square or circle
   /// default shape is circle

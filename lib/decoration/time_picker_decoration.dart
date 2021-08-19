@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../decoration/time_picker_clock_number_decoration.dart';
-import '../decoration/time_picker_clock_sector_decoration.dart';
+import '../decoration/time_picker_sector_decoration.dart';
 import '../decoration/time_picker_handler_decoration.dart';
 import '../decoration/time_picker_sweep_decoration.dart';
 
+///
+/// used to decorate the TimePicker widget.
+///
 class TimePickerDecoration {
   /// defines the background color of the picker
   /// Default Value: [Colors.cyanAccent]
@@ -18,21 +21,21 @@ class TimePickerDecoration {
 
   /// this optional decorator provides option which will get applied to the secondary Divider when enable
   /// if [primarySectors] is not defined then this setting are not needed
-  /// when [primarySectors] is set, and secondaryDividerDecoration == null the dividers will use default values from [TimePickerClockSectorDecoration]
+  /// when [primarySectors] is set, and secondaryDividerDecoration == null the dividers will use default values from [TimePickerSectorDecoration]
   /// Default Value: NULL
   ///
   /// See also:
   /// * TimePickerClockSectorDecoration
-  final TimePickerClockSectorDecoration? primarySectorsDecoration;
+  final TimePickerSectorDecoration? primarySectorsDecoration;
 
   /// this optional decorator provides option which will get applied to the secondary Divider when enable
   /// if [secondarySectors] is not defined then this setting are not needed
-  /// when [secondarySectors] is set, and secondaryDividerDecoration == null the dividers will use default values from [TimePickerClockSectorDecoration]
+  /// when [secondarySectors] is set, and secondaryDividerDecoration == null the dividers will use default values from [TimePickerSectorDecoration]
   /// Default Value: NULL
   ///
   /// See also:
   /// * TimePickerClockSectorDecoration
-  final TimePickerClockSectorDecoration? secondarySectorsDecoration;
+  final TimePickerSectorDecoration? secondarySectorsDecoration;
 
   /// See also: TimePickerSweepDecoration
   final TimePickerSweepDecoration sweepDecoration;
@@ -60,8 +63,8 @@ class TimePickerDecoration {
     TimePickerHandlerDecoration? endHandlerDecoration,
     Color? baseColor,
     double? radiusPadding,
-    TimePickerClockSectorDecoration? primaryClockSectorDecoration,
-    TimePickerClockSectorDecoration? secondaryClockSectorDecoration,
+    TimePickerSectorDecoration? primaryClockSectorDecoration,
+    TimePickerSectorDecoration? secondaryClockSectorDecoration,
     TimePickerClockNumberDecoration? clockIndicatorDecoration,
   }) {
     return TimePickerDecoration(

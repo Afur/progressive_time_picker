@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TimePickerClockSectorDecoration {
+class TimePickerSectorDecoration {
   /// defines the divider's color
   /// Default value: [Colors.blue]
   final Color color;
@@ -21,7 +21,7 @@ class TimePickerClockSectorDecoration {
   /// to add extra padding from circle's center point
   final double radiusPadding;
 
-  TimePickerClockSectorDecoration({
+  TimePickerSectorDecoration({
     this.color = Colors.grey,
     this.size = 6.0,
     this.width = 2.0,
@@ -30,13 +30,13 @@ class TimePickerClockSectorDecoration {
   }) : assert(size > 0,
             "attribute [primaryDividerSize] needs to be bigger than 0");
 
-  TimePickerClockSectorDecoration copyWith({
+  TimePickerSectorDecoration copyWith({
     Color? color,
     double? size,
     double? width,
     double? padding,
   }) {
-    return TimePickerClockSectorDecoration(
+    return TimePickerSectorDecoration(
       color: color ?? this.color,
       size: size ?? this.size,
       width: width ?? this.width,

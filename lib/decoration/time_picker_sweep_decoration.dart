@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+///
+/// used to decorate our sweep part or a part between our init and end point
+///
 class TimePickerSweepDecoration {
   final double pickerStrokeWidth;
   final bool useRoundedPickerCap;
