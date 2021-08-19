@@ -15,16 +15,16 @@ This plugin allow us to customize time picker based on our requirements for sele
 
 Import it to your project file
 
-import 'package:progressive_time_picker/progressive_time_picker.dart';
+`import 'package:progressive_time_picker/progressive_time_picker.dart';`
 
 And add it in its most basic form like it:
-  TimePicker(
+  `TimePicker(
     divisions: 288,
     init: 0,
     end: 96,
     onSelectionChange: (a, b) => print('onSelectionChange : $a, $b'),
     onSelectionEnd: (a, b) => print('onSelectionEnd : $a, $b'),
-  );
+  );`
 
 
 ### Required parameters of TimePicker
