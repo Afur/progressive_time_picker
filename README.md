@@ -30,7 +30,7 @@ And add it in its most basic form like it:
 ### Required parameters of TimePicker
 ------------
 | Parameter |  Description  |
-| ------------ | ------------ | ------------ |
+| ------------ |  ------------ |
 | int divisions | the selection values between 0..divisions; max value is 300 |
 | int init | the end value in the selection |
 | int end | the end value in the selection |
@@ -51,7 +51,7 @@ And add it in its most basic form like it:
 #### Required parameters of TimePickerDecoration
 ------------
 | Parameter |  Description  |
-| ------------ | ------------ | ------------ |
+| ------------ | ------------ |
 | TimePickerSweepDecoration sweepDecoration | used to decorate our sweep part or a part between our init and end point with various options |
 | TimePickerHandlerDecoration initHandlerDecoration  | used to decorate our init or end handler of time picker |
 | TimePickerHandlerDecoration endHandlerDecoration | used to decorate our init or end handler of time picker |
