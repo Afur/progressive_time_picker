@@ -9,7 +9,7 @@ This plugin allow us to customize time picker based on our requirements for sele
 * gives feature to show clock numbers in both 12 or 24 hours format and also supports customization for it.
 
 # Preview
-(https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/assets/timepicker.gif)
+https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/assets/timepicker.gif
 
 ## Basic Usage
 
