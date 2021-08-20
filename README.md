@@ -7,6 +7,8 @@
 </a>
 <a href="https://developer.apple.com/ios/" style="pointer-events: stroke;" target="_blank">
 <img src="https://img.shields.io/badge/platform-iOS-yellow">
+</a>
+<a href="" style="pointer-events: stroke;" target="_blank">
 <img src="https://img.shields.io/badge/platform-web-yellow">
 </a>
 <a href="" style="pointer-events: stroke;" target="_blank">
