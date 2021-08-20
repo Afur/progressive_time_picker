@@ -76,7 +76,7 @@ And add it in its most basic form like it:
 | Widget child | Container | widget that would be mounted inside the circle |
 | TimePickerDecoration decoration | - | used to decorate the our TimePicker widget |
 
-#### Required parameters of TimePickerDecoration
+### Required parameters of TimePickerDecoration
 ------------
 | Parameter |  Description  |
 | ------------ | ------------ |
@@ -84,7 +84,7 @@ And add it in its most basic form like it:
 | TimePickerHandlerDecoration initHandlerDecoration  | used to decorate our init or end handler of time picker |
 | TimePickerHandlerDecoration endHandlerDecoration | used to decorate our init or end handler of time picker |
 
-#### Optional parameters of TimePickerDecoration
+### Optional parameters of TimePickerDecoration
 ------------
 | Parameter |  Default | Description  |
 | ------------ | ------------ | ------------ |
@@ -95,11 +95,11 @@ And add it in its most basic form like it:
 | TimePickerClockNumberDecoration clockNumberDecoration  | - |  Provides decoration options which will get applied to the internal clock's numbers when enable |
 
 
-#### Guideline for contributors
+### Guideline for contributors
 ------------
 * Contribution towards our repository is always welcome, we request contributors to create a pull request for development.
 
-#### Guideline to report an issue/feature request
+### Guideline to report an issue/feature request
 ------------
 It would be great for us if the reporter can share the below things to understand the root cause of the issue.
 
