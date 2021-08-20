@@ -37,8 +37,7 @@ class BaseTimePainter extends CustomPainter {
     if (secondarySectors > 0) {
       _paintSectors(
           secondarySectors,
-          decoration.secondarySectorsDecoration ??
-              TimePickerSectorDecoration(),
+          decoration.secondarySectorsDecoration ?? TimePickerSectorDecoration(),
           canvas);
     }
 

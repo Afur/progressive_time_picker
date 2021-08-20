@@ -32,7 +32,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ClockTimeFormat _clockTimeFormat = ClockTimeFormat.twentyFourHours;
   int _inBedTime = 0;
-  int _outBedTime = 96;       /// 8 hours = 96 * 12 / 288
+  int _outBedTime = 96;
+
+  /// 8 hours = 96 * 12 / 288
   double _sleepGoal = 8.0;
   bool _isSleepGoal = false;
 
