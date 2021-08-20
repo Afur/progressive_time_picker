@@ -1,5 +1,11 @@
 # progressive_time_picker
 
+<a href="https://github.com/tenhobi/effective_dart"><img src="https://img.shields.io/badge/style-effective_dart-40c4ff.svg" alt="style: effective dart"></a>
+<a href="https://flutter.dev/docs/development/data-and-backend/state-mgmt/options#bloc--rx"><img src="https://img.shields.io/badge/flutter-website-deepskyblue.svg" alt="Flutter Website"></a>
+<a href="https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/LICENSE" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/licence-MIT-orange">
+</a>
+
 A Customizable Progressive Time Picker for Flutter.
 This plugin allow us to customize time picker based on our requirements for selecting a specific range from time picker and it's supports multiple platforms.
 
