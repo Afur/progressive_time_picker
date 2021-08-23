@@ -59,7 +59,7 @@ And add it in its most basic form like it:
 ------------
 | Parameter |  Description  |
 | ------------ |  ------------ |
-| int divisions | the selection values between 0..divisions; max value is 300 |
+| int divisions | number of sections in which the circle will be divided. the selection values between 0..divisions; max value is 300 |
 | int init | the end value in the selection |
 | int end | the end value in the selection |
 | onSelectionChange  | callback function when init and end change |

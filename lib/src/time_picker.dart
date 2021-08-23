@@ -14,6 +14,7 @@ import '../painters/time_picker_painter.dart';
 /// The rest of the params are used to change the look and feel.
 ///
 class TimePicker extends StatefulWidget {
+  /// The number of sections in which the circle will be divided for selection.
   /// the selection will be values between 0..divisions; max value is 300
   final int divisions;
 

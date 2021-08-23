@@ -32,9 +32,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ClockTimeFormat _clockTimeFormat = ClockTimeFormat.twentyFourHours;
   int _inBedTime = 0;
+
+  /// 8 hours = 96 * 24 / 288
   int _outBedTime = 96;
 
-  /// 8 hours = 96 * 12 / 288
+  /// 5 min = 1440 (24h * 60m) / 288
+  int _timeInterval = 5;
+
+  /// 288d = 1440 (24h * 60m) / 5;
+  int _divisions = 288;
+
   double _sleepGoal = 8.0;
   bool _isSleepGoal = false;
 
@@ -60,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           TimePicker(
-            divisions: 288,
+            divisions: _divisions,
             init: _inBedTime,
             end: _outBedTime,
             height: 260.0,
@@ -228,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _validateSleepGoal(
       {required int inTime, required int outTime, required double sleepGoal}) {
     var sleepTime =
-        outTime > inTime ? outTime - inTime : 288 - inTime + outTime;
+        outTime > inTime ? outTime - inTime : _divisions - inTime + outTime;
     var sleepHours = sleepTime ~/
         ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
     return (sleepHours >= sleepGoal) ? true : false;
@@ -242,19 +249,19 @@ class _MyHomePageState extends State<MyHomePage> {
         time ~/ ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
     var strHours = intl.NumberFormat('00').format(hours);
 
-    var minutes = (time % 12) * 5;
+    var minutes = (time % 12) * _timeInterval;
     var strMinutes = intl.NumberFormat('00').format(minutes);
 
     return '$strHours:$strMinutes';
   }
 
   String _formatIntervalTime(int init, int end) {
-    var sleepTime = end > init ? end - init : 288 - init + end;
+    var sleepTime = end > init ? end - init : _divisions - init + end;
     var hours = sleepTime ~/
         ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
     var strHours = intl.NumberFormat('00').format(hours);
 
-    var minutes = (sleepTime % 12) * 5;
+    var minutes = (sleepTime % 12) * _timeInterval;
     var strMinutes = intl.NumberFormat('00').format(minutes);
 
     return '${strHours}Hr ${strMinutes}Min';
