@@ -1,5 +1,5 @@
 name: progressive_time_picker
-description: A Customizable Progressive Time Picker for Flutter.
+description: This plugin allow us to customize time picker based on our requirements for selecting a specific range from time picker and it's supports multiple platforms.
 version: 0.0.1
 homepage:
 
