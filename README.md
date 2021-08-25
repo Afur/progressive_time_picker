@@ -47,11 +47,14 @@ import 'package:progressive_time_picker/progressive_time_picker.dart';
 And add it in its most basic form like it:
 ```
   TimePicker(
-    divisions: 288,
-    init: 0,
-    end: 96,
-    onSelectionChange: (a, b) => print('onSelectionChange : $a, $b'),
-    onSelectionEnd: (a, b) => print('onSelectionEnd : $a, $b'),
+    initTime: PickedTime(h: 0, m: 0),
+    endTime: PickedTime(h: 8, m: 0),
+    onSelectionChange: (a, b) =>
+        print(
+            'onSelectionChange => init : ${a.h}:${a.m}, end : ${b.h}:${b.m}'),
+    onSelectionEnd: (a, b) =>
+        print(
+            'onSelectionEnd => init : ${a.h}:${a.m}, end : ${b.h}:${b.m}'),
   );
 ```
 
@@ -59,11 +62,10 @@ And add it in its most basic form like it:
 ------------
 | Parameter |  Description  |
 | ------------ |  ------------ |
-| int divisions | number of sections in which the circle will be divided. the selection values between 0..divisions; max value is 300 |
-| int init | the end value in the selection |
-| int end | the end value in the selection |
-| onSelectionChange  | callback function when init and end change |
-| onSelectionEnd | callback function when init and end finish |
+| PickedTime initTime | the init PickedTime value in the selection |
+| PickedTime endTime | the end PickedTime value in the selection |
+| onSelectionChange  | callback function when init and end PickedTime change |
+| onSelectionEnd | callback function when init and end PickedTime finish |
 
 ### Optional parameters of TimePicker
 ------------
@@ -71,10 +73,10 @@ And add it in its most basic form like it:
 | ------------ | ------------ | ------------ |
 | double height | 220 | height of the canvas |
 | double width | 220 | width of the canvas |
-| int primarySectors | 0 | he number of primary sectors to be painted |
+| int primarySectors | 0 | the number of primary sectors to be painted |
 | int secondarySectors | 0 | the number of secondary sectors to be painted |
 | Widget child | Container | widget that would be mounted inside the circle |
-| TimePickerDecoration decoration | - | used to decorate the our TimePicker widget |
+| TimePickerDecoration decoration | - | used to decorate our TimePicker widget |
 
 ### Required parameters of TimePickerDecoration
 ------------

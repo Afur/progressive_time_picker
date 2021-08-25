@@ -10,7 +10,6 @@ typedef SelectionChanged<T> = void Function(T a, T b);
 class TimePickerPainter extends StatefulWidget {
   final int init;
   final int end;
-  final int divisions;
   final int primarySectors;
   final int secondarySectors;
   final SelectionChanged<int> onSelectionChange;
@@ -19,7 +18,6 @@ class TimePickerPainter extends StatefulWidget {
   final TimePickerDecoration pickerDecoration;
 
   TimePickerPainter({
-    required this.divisions,
     required this.init,
     required this.end,
     required this.child,
@@ -41,11 +39,11 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
   late PickerPainter _painter;
 
   /// this field will allow us to keep track of the last known good location for endHandler
-  /// it helps to fix issue when using MIN/MAX values and the picker is sweep across the total divisions
+  /// it helps to fix issue when using MIN/MAX values and the picker is sweep across the total clock division
   int lastValidEndHandlerLocation = 0;
 
   /// this field will allow us to keep track of the last known good location for initHandler
-  /// it helps to fix issue when using MIN/MAX values and the picker is sweep across the total divisions
+  /// it helps to fix issue when using MIN/MAX values and the picker is sweep across the total clock division
   int lastValidInitHandlerLocation = 0;
 
   /// start angle in radians where we need to locate the init handler
@@ -117,8 +115,16 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
   }
 
   void _calculatePaintData() {
-    var initPercent = valueToPercentage(widget.init, widget.divisions);
-    var endPercent = valueToPercentage(widget.end, widget.divisions);
+    var initPercent = valueToPercentage(
+        widget.init,
+        widget.pickerDecoration.clockNumberDecoration?.clockTimeFormat
+                .division ??
+            ClockTimeFormat.twentyFourHours.division);
+    var endPercent = valueToPercentage(
+        widget.end,
+        widget.pickerDecoration.clockNumberDecoration?.clockTimeFormat
+                .division ??
+            ClockTimeFormat.twentyFourHours.division);
     var sweep = getSweepAngle(initPercent, endPercent);
 
     _startAngle = percentageToRadians(initPercent);
@@ -152,14 +158,22 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
 
     var angle = coordinatesToRadians(_painter.center, position);
     var percentage = radiansToPercentage(angle);
-    var newValue = percentageToValue(percentage, widget.divisions);
+    var newValue = percentageToValue(
+        percentage,
+        widget.pickerDecoration.clockNumberDecoration?.clockTimeFormat
+                .division ??
+            ClockTimeFormat.twentyFourHours.division);
 
     if (isBothHandlersSelected) {
-      var newValueInit =
-          (newValue - _differenceFromInitPoint) % widget.divisions;
+      var newValueInit = (newValue - _differenceFromInitPoint) %
+          (widget.pickerDecoration.clockNumberDecoration?.clockTimeFormat
+                  .division ??
+              ClockTimeFormat.twentyFourHours.division);
       if (newValueInit != widget.init) {
-        var newValueEnd =
-            (widget.end + (newValueInit - widget.init)) % widget.divisions;
+        var newValueEnd = (widget.end + (newValueInit - widget.init)) %
+            (widget.pickerDecoration.clockNumberDecoration?.clockTimeFormat
+                    .division ??
+                ClockTimeFormat.twentyFourHours.division);
 
         widget.onSelectionChange(newValueInit, newValueEnd);
         if (isPanEnd) {
@@ -209,9 +223,12 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
             var positionPercentage = radiansToPercentage(angle);
 
             /// no need to account for negative values, that will be sorted out in the onPanUpdate
-            _differenceFromInitPoint =
-                percentageToValue(positionPercentage, widget.divisions) -
-                    widget.init;
+            _differenceFromInitPoint = percentageToValue(
+                    positionPercentage,
+                    (widget.pickerDecoration.clockNumberDecoration
+                            ?.clockTimeFormat.division ??
+                        ClockTimeFormat.twentyFourHours.division)) -
+                widget.init;
           }
         }
       }

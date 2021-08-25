@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:progressive_time_picker/progressive_time_picker.dart';
+import 'package:intl/intl.dart' as intl;
 
 void main() {
   /// To set fixed device orientation
@@ -31,16 +31,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ClockTimeFormat _clockTimeFormat = ClockTimeFormat.twentyFourHours;
-  int _inBedTime = 0;
 
-  /// 8 hours = 96 * 24 / 288
-  int _outBedTime = 96;
-
-  /// 5 min = 1440 (24h * 60m) / 288
-  int _timeInterval = 5;
-
-  /// 288d = 1440 (24h * 60m) / 5;
-  int _divisions = 288;
+  PickedTime _inBedTime = PickedTime(h: 0, m: 0);
+  PickedTime _outBedTime = PickedTime(h: 8, m: 0);
+  PickedTime _intervalBedTime = PickedTime(h: 0, m: 0);
 
   double _sleepGoal = 8.0;
   bool _isSleepGoal = false;
@@ -49,6 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _isSleepGoal = (_sleepGoal >= 8.0) ? true : false;
+    _intervalBedTime = formatIntervalTime(
+        init: _inBedTime, end: _outBedTime, clockTimeFormat: _clockTimeFormat);
   }
 
   @override
@@ -67,13 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           TimePicker(
-            divisions: _divisions,
-            init: _inBedTime,
-            end: _outBedTime,
+            initTime: _inBedTime,
+            endTime: _outBedTime,
             height: 260.0,
             width: 260.0,
             onSelectionChange: _updateLabels,
-            onSelectionEnd: (a, b) => print('onSelectionEnd $a $b'),
+            onSelectionEnd: (a, b) => print(
+                'onSelectionEnd => init : ${a.h}:${a.m}, end : ${b.h}:${b.m}'),
             primarySectors: _clockTimeFormat.value,
             secondarySectors: _clockTimeFormat.value * 2,
             decoration: TimePickerDecoration(
@@ -130,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${_formatIntervalTime(_inBedTime, _outBedTime)}',
+                    '${intl.NumberFormat('00').format(_intervalBedTime.h)}Hr ${intl.NumberFormat('00').format(_intervalBedTime.m)}Min',
                     style: TextStyle(
                         fontSize: 14.0,
                         color: _isSleepGoal ? Color(0xFF3CDAF7) : Colors.white,
@@ -189,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _timeWidget(String title, int time, Icon icon) {
+  Widget _timeWidget(String title, PickedTime time, Icon icon) {
     return Container(
       width: 150.0,
       decoration: BoxDecoration(
@@ -201,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Text(
-              '${_formatTime(time)}',
+              '${intl.NumberFormat('00').format(time.h)}:${intl.NumberFormat('00').format(time.m)}',
               style: TextStyle(
                 color: Color(0xFF3CDAF7),
                 fontSize: 25,
@@ -224,46 +220,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _updateLabels(int init, int end) {
+  void _updateLabels(PickedTime init, PickedTime end) {
     _inBedTime = init;
     _outBedTime = end;
-    _isSleepGoal =
-        _validateSleepGoal(inTime: init, outTime: end, sleepGoal: _sleepGoal);
+    _intervalBedTime = formatIntervalTime(
+        init: _inBedTime, end: _outBedTime, clockTimeFormat: _clockTimeFormat);
+    _isSleepGoal = validateSleepGoal(
+      inTime: init,
+      outTime: end,
+      sleepGoal: _sleepGoal,
+      clockTimeFormat: _clockTimeFormat,
+    );
     setState(() {});
-  }
-
-  bool _validateSleepGoal(
-      {required int inTime, required int outTime, required double sleepGoal}) {
-    var sleepTime =
-        outTime > inTime ? outTime - inTime : _divisions - inTime + outTime;
-    var sleepHours = sleepTime ~/
-        ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
-    return (sleepHours >= sleepGoal) ? true : false;
-  }
-
-  String _formatTime(int time) {
-    if (time == 0) {
-      return '00:00';
-    }
-    var hours =
-        time ~/ ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
-    var strHours = intl.NumberFormat('00').format(hours);
-
-    var minutes = (time % 12) * _timeInterval;
-    var strMinutes = intl.NumberFormat('00').format(minutes);
-
-    return '$strHours:$strMinutes';
-  }
-
-  String _formatIntervalTime(int init, int end) {
-    var sleepTime = end > init ? end - init : _divisions - init + end;
-    var hours = sleepTime ~/
-        ((_clockTimeFormat == ClockTimeFormat.twelveHours) ? 24 : 12);
-    var strHours = intl.NumberFormat('00').format(hours);
-
-    var minutes = (sleepTime % 12) * _timeInterval;
-    var strMinutes = intl.NumberFormat('00').format(minutes);
-
-    return '${strHours}Hr ${strMinutes}Min';
   }
 }

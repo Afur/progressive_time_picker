@@ -27,6 +27,22 @@ double valueToPercentage(int time, int intervals) => (time / intervals) * 100;
 int percentageToValue(double percentage, int intervals) =>
     ((percentage * intervals) / 100).round();
 
+int pickedTimeToDivision({
+  required PickedTime pickedTime,
+  ClockTimeFormat? clockTimeFormat,
+}) {
+  var clockTime = clockTimeFormat ?? ClockTimeFormat.twentyFourHours;
+
+  /// converting pickedTime data with the picker circle division angle
+  var hours = ((clockTime.division * pickedTime.h) / clockTime.value).round() %
+      clockTime.division;
+  var minutes =
+      ((clockTime.division * (pickedTime.m / 60)) / clockTime.value).round() %
+          clockTime.division;
+
+  return (hours + minutes);
+}
+
 bool isPointInsideCircle(Offset point, Offset center, double rradius) {
   var radius = rradius * 1.2;
   return point.dx < (center.dx + radius) &&
@@ -90,4 +106,80 @@ extension ClockTimeFormatExtension on ClockTimeFormat {
         return 24;
     }
   }
+
+  int get division {
+    switch (this) {
+      case ClockTimeFormat.twelveHours:
+        return 144;
+      case ClockTimeFormat.twentyFourHours:
+        return 288;
+      default:
+        return 288;
+    }
+  }
+}
+
+class PickedTime {
+  final int h;
+  final int m;
+
+  PickedTime({
+    required this.h,
+    required this.m,
+  });
+}
+
+PickedTime formatTime({
+  required int time,
+}) {
+  if (time == 0) {
+    return PickedTime(h: 0, m: 0);
+  }
+  var hours = time ~/ 12;
+  var minutes = (time % 12) * 5;
+
+  return PickedTime(h: hours, m: minutes);
+}
+
+PickedTime formatIntervalTime({
+  required PickedTime init,
+  required PickedTime end,
+  ClockTimeFormat? clockTimeFormat,
+}) {
+  var clockTime = clockTimeFormat ?? ClockTimeFormat.twentyFourHours;
+
+  var _init =
+      pickedTimeToDivision(pickedTime: init, clockTimeFormat: clockTime);
+  var _end = pickedTimeToDivision(pickedTime: end, clockTimeFormat: clockTime);
+
+  var sleepTime =
+      _end > _init ? _end - _init : clockTime.division - _init + _end;
+
+  var hours = sleepTime ~/ 12;
+  var minutes = (sleepTime % 12) * 5;
+
+  return PickedTime(
+    h: hours,
+    m: minutes,
+  );
+}
+
+bool validateSleepGoal({
+  required PickedTime inTime,
+  required PickedTime outTime,
+  required double sleepGoal,
+  ClockTimeFormat? clockTimeFormat,
+}) {
+  var clockTime = clockTimeFormat ?? ClockTimeFormat.twentyFourHours;
+
+  var _inTime =
+      pickedTimeToDivision(pickedTime: inTime, clockTimeFormat: clockTime);
+  var _outTime =
+      pickedTimeToDivision(pickedTime: outTime, clockTimeFormat: clockTime);
+
+  var sleepTime = _outTime > _inTime
+      ? _outTime - _inTime
+      : clockTime.division - _inTime + _outTime;
+  var sleepHours = sleepTime ~/ 12;
+  return (sleepHours >= sleepGoal) ? true : false;
 }

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../src/utils.dart';
 import '../decoration/time_picker_sector_decoration.dart';
 import '../decoration/time_picker_sweep_decoration.dart';
 import '../decoration/time_picker_handler_decoration.dart';
@@ -14,15 +15,11 @@ import '../painters/time_picker_painter.dart';
 /// The rest of the params are used to change the look and feel.
 ///
 class TimePicker extends StatefulWidget {
-  /// The number of sections in which the circle will be divided for selection.
-  /// the selection will be values between 0..divisions; max value is 300
-  final int divisions;
+  /// the initial time
+  final PickedTime initTime;
 
-  /// the initial value in the selection
-  final int init;
-
-  /// the end value in the selection
-  final int end;
+  /// the end time
+  final PickedTime endTime;
 
   /// the number of primary sectors to be painted
   /// will be painted using selectionColor
@@ -42,20 +39,17 @@ class TimePicker extends StatefulWidget {
   final double? width;
 
   /// callback function when init and end change
-  /// (int init, int end) => void
-  final SelectionChanged<int> onSelectionChange;
+  final SelectionChanged<PickedTime> onSelectionChange;
 
   /// callback function when init and end finish
-  /// (int init, int end) => void
-  final SelectionChanged<int> onSelectionEnd;
+  final SelectionChanged<PickedTime> onSelectionEnd;
 
   /// used to decorate the our widget
   final TimePickerDecoration? decoration;
 
   TimePicker({
-    required this.divisions,
-    required this.init,
-    required this.end,
+    required this.initTime,
+    required this.endTime,
     required this.onSelectionChange,
     required this.onSelectionEnd,
     this.child,
@@ -64,8 +58,7 @@ class TimePicker extends StatefulWidget {
     this.width,
     this.primarySectors,
     this.secondarySectors,
-  }) : assert(divisions >= 0 && divisions <= 300,
-            'divisions has to be > 0 and <= 300');
+  });
 
   @override
   _TimePickerState createState() => _TimePickerState();
@@ -78,9 +71,14 @@ class _TimePickerState extends State<TimePicker> {
   @override
   void initState() {
     super.initState();
-
-    _init = widget.init % widget.divisions;
-    _end = widget.end % widget.divisions;
+    _init = pickedTimeToDivision(
+        pickedTime: widget.initTime,
+        clockTimeFormat:
+            widget.decoration?.clockNumberDecoration?.clockTimeFormat);
+    _end = pickedTimeToDivision(
+        pickedTime: widget.endTime,
+        clockTimeFormat:
+            widget.decoration?.clockNumberDecoration?.clockTimeFormat);
   }
 
   TimePickerDecoration getDefaultPickerDecorator() {
@@ -137,19 +135,25 @@ class _TimePickerState extends State<TimePicker> {
       child: TimePickerPainter(
         init: _init,
         end: _end,
-        divisions: widget.divisions,
         primarySectors: widget.primarySectors ?? 0,
         secondarySectors: widget.secondarySectors ?? 0,
         child: widget.child ?? Container(),
         onSelectionChange: (newInit, newEnd) {
-          widget.onSelectionChange(newInit, newEnd);
+          var inTime = formatTime(time: newInit);
+          var outTime = formatTime(time: newEnd);
+
+          widget.onSelectionChange(inTime, outTime);
+
           setState(() {
             _init = newInit;
             _end = newEnd;
           });
         },
         onSelectionEnd: (newInit, newEnd) {
-          widget.onSelectionEnd(newInit, newEnd);
+          var inTime = formatTime(time: newInit);
+          var outTime = formatTime(time: newEnd);
+
+          widget.onSelectionEnd(inTime, outTime);
         },
         pickerDecoration: widget.decoration ?? getDefaultPickerDecorator(),
       ),
