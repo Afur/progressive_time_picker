@@ -21,8 +21,8 @@
 <img src="https://img.shields.io/badge/platform-Windows-yellow">
 </a>
 <a href="https://www.codacy.com/gh/mohit-chauhan-mi/progressive_time_picker/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mohit-chauhan-mi/progressive_time_picker&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/dc683c9cc61b499fa7cdbf54e4d9ff35"/></a>
-<a href="https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/LICENSE" style="pointer-events: stroke;" target="_blank">
-<img src="https://img.shields.io/github/license/mohit-chauhan-mi/progressive_time_picker"></a>
+<a href="https://github.com/Mindinventory/progressive_time_picker/blob/master/LICENSE" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/github/license/Mindinventory/progressive_time_picker"></a>
 
 
 A Customizable Progressive Time Picker for Flutter.
@@ -34,7 +34,7 @@ This plugin allow us to customize time picker based on our requirements for sele
 * gives feature to show clock numbers in both 12 or 24 hours format and also supports customization for it.
 
 # Preview
-![progressive_time_picker](https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/assets/timepicker.gif)
+![progressive_time_picker](https://github.com/Mindinventory/progressive_time_picker/blob/master/assets/timepicker.gif)
 
 ## Basic Usage
 
@@ -114,7 +114,7 @@ It would be great for us if the reporter can share the below things to understan
 
 LICENSE!
 ------------
-**progressive_time_picker** is [MIT-licensed.](https://github.com/mohit-chauhan-mi/progressive_time_picker/blob/master/LICENSE)
+**progressive_time_picker** is [MIT-licensed.](https://github.com/Mindinventory/progressive_time_picker/blob/master/LICENSE)
 
 Let us know!
 ------------
