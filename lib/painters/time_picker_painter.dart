@@ -205,16 +205,16 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     var position = renderBox.globalToLocal(details);
 
-    _isInitHandlerSelected = widget.isInitHandlerSelectable ? isPointInsideCircle(
-        position,
-        _painter.initHandlerCenterLocation,
-        widget.pickerDecoration.initHandlerDecoration.handlerOutterRadius) : false;
+    _isInitHandlerSelected = widget.isInitHandlerSelectable
+        ? isPointInsideCircle(position, _painter.initHandlerCenterLocation,
+            widget.pickerDecoration.initHandlerDecoration.handlerOutterRadius)
+        : false;
 
     if (!_isInitHandlerSelected) {
-      _isEndHandlerSelected = widget.isEndHandlerSelectable ? isPointInsideCircle(
-          position,
-          _painter.endHandlerCenterLocation,
-          widget.pickerDecoration.endHandlerDecoration.handlerOutterRadius) : false;
+      _isEndHandlerSelected = widget.isEndHandlerSelectable
+          ? isPointInsideCircle(position, _painter.endHandlerCenterLocation,
+              widget.pickerDecoration.endHandlerDecoration.handlerOutterRadius)
+          : false;
 
       if (isNoHandlersSelected) {
         /// we check if the user pressed in the selection in a double handler picker
