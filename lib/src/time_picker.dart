@@ -47,6 +47,12 @@ class TimePicker extends StatefulWidget {
   /// used to decorate the our widget
   final TimePickerDecoration? decoration;
 
+  /// used to enabled or disabled Selection of Init Handler
+  final bool isInitHandlerSelectable;
+
+  /// used to enabled or disabled Selection of End Handler
+  final bool isEndHandlerSelectable;
+
   TimePicker({
     required this.initTime,
     required this.endTime,
@@ -58,6 +64,8 @@ class TimePicker extends StatefulWidget {
     this.width,
     this.primarySectors,
     this.secondarySectors,
+    this.isInitHandlerSelectable = true,
+    this.isEndHandlerSelectable = true,
   });
 
   @override
@@ -156,6 +164,8 @@ class _TimePickerState extends State<TimePicker> {
           widget.onSelectionEnd(inTime, outTime);
         },
         pickerDecoration: widget.decoration ?? getDefaultPickerDecorator(),
+        isInitHandlerSelectable: widget.isInitHandlerSelectable,
+        isEndHandlerSelectable: widget.isEndHandlerSelectable,
       ),
     );
   }

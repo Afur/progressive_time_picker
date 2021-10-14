@@ -29,7 +29,7 @@ A Customizable Progressive Time Picker for Flutter.
 This plugin allow us to customize time picker based on our requirements for selecting a specific range from time picker and it's supports multiple platforms.
 
 ## Key Features
-* supports selection of both picker handler.
+* supports selection of both or single picker handler.
 * easy customization for decorating a time picker.
 * gives feature to show clock numbers in both 12 or 24 hours format and also supports customization for it.
 
@@ -77,6 +77,8 @@ And add it in its most basic form like it:
 | int secondarySectors | 0 | the number of secondary sectors to be painted |
 | Widget child | Container | widget that would be mounted inside the circle |
 | TimePickerDecoration decoration | - | used to decorate our TimePicker widget |
+| bool isInitHandlerSelectable | true | used to enabled or disabled Selection of Init Handler |
+| bool isEndHandlerSelectable | true | used to enabled or disabled Selection of End Handler |
 
 ### Required parameters of TimePickerDecoration
 ------------

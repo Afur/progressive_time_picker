@@ -16,6 +16,8 @@ class TimePickerPainter extends StatefulWidget {
   final SelectionChanged<int> onSelectionEnd;
   final Widget child;
   final TimePickerDecoration pickerDecoration;
+  final bool isInitHandlerSelectable;
+  final bool isEndHandlerSelectable;
 
   TimePickerPainter({
     required this.init,
@@ -26,6 +28,8 @@ class TimePickerPainter extends StatefulWidget {
     required this.onSelectionChange,
     required this.onSelectionEnd,
     required this.pickerDecoration,
+    required this.isInitHandlerSelectable,
+    required this.isEndHandlerSelectable,
   });
 
   @override
@@ -201,16 +205,16 @@ class _TimePickerPainterState extends State<TimePickerPainter> {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     var position = renderBox.globalToLocal(details);
 
-    _isInitHandlerSelected = isPointInsideCircle(
+    _isInitHandlerSelected = widget.isInitHandlerSelectable ? isPointInsideCircle(
         position,
         _painter.initHandlerCenterLocation,
-        widget.pickerDecoration.initHandlerDecoration.handlerOutterRadius);
+        widget.pickerDecoration.initHandlerDecoration.handlerOutterRadius) : false;
 
     if (!_isInitHandlerSelected) {
-      _isEndHandlerSelected = isPointInsideCircle(
+      _isEndHandlerSelected = widget.isEndHandlerSelectable ? isPointInsideCircle(
           position,
           _painter.endHandlerCenterLocation,
-          widget.pickerDecoration.endHandlerDecoration.handlerOutterRadius);
+          widget.pickerDecoration.endHandlerDecoration.handlerOutterRadius) : false;
 
       if (isNoHandlersSelected) {
         /// we check if the user pressed in the selection in a double handler picker
