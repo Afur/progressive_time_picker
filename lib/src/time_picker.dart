@@ -15,6 +15,9 @@ import '../painters/time_picker_painter.dart';
 /// The rest of the params are used to change the look and feel.
 ///
 class TimePicker extends StatefulWidget {
+  /// widget key
+  final Key? key;
+
   /// the initial time
   final PickedTime initTime;
 
@@ -54,6 +57,7 @@ class TimePicker extends StatefulWidget {
   final bool isEndHandlerSelectable;
 
   TimePicker({
+    this.key,
     required this.initTime,
     required this.endTime,
     required this.onSelectionChange,
@@ -66,7 +70,7 @@ class TimePicker extends StatefulWidget {
     this.secondarySectors,
     this.isInitHandlerSelectable = true,
     this.isEndHandlerSelectable = true,
-  });
+  }) : super(key: key);
 
   @override
   _TimePickerState createState() => _TimePickerState();
@@ -87,6 +91,13 @@ class _TimePickerState extends State<TimePicker> {
         pickedTime: widget.endTime,
         clockTimeFormat:
             widget.decoration?.clockNumberDecoration?.clockTimeFormat);
+  }
+
+  void changeTime(PickedTime start, PickedTime end) {
+    setState(() {
+      _init = pickedTimeToDivision(pickedTime: start);
+      _end = pickedTimeToDivision(pickedTime: end);
+    });
   }
 
   TimePickerDecoration getDefaultPickerDecorator() {
