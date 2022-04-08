@@ -73,10 +73,10 @@ class TimePicker extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TimePickerState createState() => _TimePickerState();
+  TimePickerState createState() => TimePickerState();
 }
 
-class _TimePickerState extends State<TimePicker> {
+class TimePickerState extends State<TimePicker> {
   int _init = 0;
   int _end = 0;
 
